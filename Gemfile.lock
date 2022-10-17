@@ -378,7 +378,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    statsd-instrument (2.3.5)
+    statsd-instrument (3.5.0)
     thor (1.0.1)
     tilt (2.0.10)
     timers (4.1.2)
