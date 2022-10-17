@@ -383,7 +383,7 @@ GEM
     tilt (2.0.10)
     timers (4.1.2)
       hitimes
-    toxiproxy (1.0.3)
+    toxiproxy (2.0.2)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     uglifier (4.2.0)
