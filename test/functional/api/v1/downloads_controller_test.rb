@@ -4,6 +4,7 @@ class Api::V1::DownloadsControllerTest < ActionController::TestCase
   def self.should_respond_to(format)
     should "return #{format.to_s.upcase} with the download count" do
       get :index, format: format
+
       assert_equal @count, yield(@response.body)
     end
   end
@@ -16,6 +17,7 @@ class Api::V1::DownloadsControllerTest < ActionController::TestCase
 
     should "return the download count" do
       get :index
+
       assert_equal @count, @response.body.to_i
     end
 
@@ -24,7 +26,7 @@ class Api::V1::DownloadsControllerTest < ActionController::TestCase
     end
 
     should_respond_to(:yaml) do |body|
-      YAML.safe_load(body, [Symbol])[:total]
+      YAML.safe_load(body, permitted_classes: [Symbol])[:total]
     end
 
     should_respond_to(:text, &:to_i)
@@ -38,21 +40,25 @@ class Api::V1::DownloadsControllerTest < ActionController::TestCase
     context "with #{format.to_s.upcase}" do
       should "have total downloads for version1" do
         get_show(@version1, format)
+
         assert_equal 3, yield(@response.body)["total_downloads".send(to_meth)]
       end
 
       should "have downloads for the most recent version of version1" do
         get_show(@version1, format)
+
         assert_equal 1, yield(@response.body)["version_downloads".send(to_meth)]
       end
 
       should "have total downloads for version2" do
         get_show(@version2, format)
+
         assert_equal 3, yield(@response.body)["total_downloads".send(to_meth)]
       end
 
       should "have downloads for the most recent version of version2" do
         get_show(@version2, format)
+
         assert_equal 2, yield(@response.body)["version_downloads".send(to_meth)]
       end
     end
@@ -72,7 +78,7 @@ class Api::V1::DownloadsControllerTest < ActionController::TestCase
     end
 
     should_respond_to(:yaml, :to_sym) do |body|
-      YAML.safe_load(body, [Symbol])
+      YAML.safe_load(body, permitted_classes: [Symbol])
     end
   end
 

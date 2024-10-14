@@ -14,6 +14,9 @@ class I18nTest < ActionDispatch::IntegrationTest
     locales = Dir.glob("#{locales_path}/*.yml").collect do |file_path|
       File.basename(file_path, ".yml")
     end
+    locales.reject! do |file_path|
+      file_path.starts_with?("avo.")
+    end
 
     # collecting all locales
     locale_keys = {}
@@ -24,13 +27,16 @@ class I18nTest < ActionDispatch::IntegrationTest
 
     # Using en as reference
     reference = locale_keys[locales.delete("en")]
-    assert reference.present?
+
+    assert_predicate reference, :present?
 
     locale_keys.each do |locale, keys|
       missing = reference - keys
-      assert missing.blank?, "#{locale} locale is missing: #{missing.join(', ')}"
+
+      assert_predicate missing, :blank?, "#{locale} locale is missing: #{missing.join(', ')}"
       extra = keys - reference
-      assert extra.blank?, "#{locale} locale has extra: #{extra.join(', ')}"
+
+      assert_predicate extra, :blank?, "#{locale} locale has extra: #{extra.join(', ')}"
     end
   end
 end

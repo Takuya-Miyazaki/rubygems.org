@@ -1,11 +1,11 @@
 require Rails.root.join("config", "secret") if Rails.root.join("config", "secret.rb").file?
-require_relative "../../lib/middleware/redirector"
+require_relative "../../lib/gemcutter/middleware/redirector"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
-  config.cache_classes = true
+  config.enable_reloading = false
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -31,7 +31,7 @@ Rails.application.configure do
   }
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = :terser
   config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -56,16 +56,17 @@ Rails.application.configure do
   config.ssl_options = {
     hsts: { expires: 365.days, subdomains: false },
     redirect: {
-      exclude: lambda do |request|
-        insecure_dependency_api = (request.host == "insecure.rubygems.org" && request.path =~ %r{^/(info|versions|api/v1/dependencies)})
-        request.path.start_with?('/internal') or insecure_dependency_api
-      end
+      exclude: ->(request) { request.path.start_with?('/internal') }
     }
   }
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :info
+  config.log_level = ENV['RAILS_LOG_LEVEL'].present? ? ENV['RAILS_LOG_LEVEL'].to_sym : :info
+  config.rails_semantic_logger.format = :json
+  config.rails_semantic_logger.semantic = true
+  config.rails_semantic_logger.add_file_appender = false
+  SemanticLogger.add_appender(io: $stdout, formatter: :json)
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :request_id ]
@@ -93,22 +94,6 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
-  # Use default logging formatter so that PID and timestamp are not suppressed.
-  # config.log_formatter = ::Logger::Formatter.new
-
-  # Use a different logger for distributed setups.
-  # require 'syslog/logger'
-  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
-
-  # if ENV["RAILS_LOG_TO_STDOUT"].present?
-  #   logger           = ActiveSupport::Logger.new($stdout)
-  #   logger.formatter = config.log_formatter
-  #   config.logger    = ActiveSupport::TaggedLogging.new(logger)
-  # end
-
-  # Custom logging config.
-  config.logger = ActiveSupport::Logger.new($stdout)
-
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
@@ -117,8 +102,9 @@ Rails.application.configure do
     socket_timeout: 1.5,
     socket_failure_delay: 0.2,
     compress: true,
-    compression_min_size: 524_288
+    compression_min_size: 524_288,
+    value_max_bytes: 2_097_152 # 2MB
   }
 
-  config.middleware.use Redirector
+  config.middleware.use Gemcutter::Middleware::Redirector
 end

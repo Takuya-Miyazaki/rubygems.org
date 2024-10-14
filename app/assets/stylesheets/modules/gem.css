@@ -1,6 +1,10 @@
+:root {
+  --gem-version-color: #a6aab2;
+}
+
 .gem__version {
   position: relative;
-  color: #a6aab2; }
+  color: var(--gem-version-color); }
   @media (max-width: 929px) {
     .gem__version {
       top: 5px;
@@ -10,7 +14,7 @@
       top: 10px;
       font-size: 42px; } }
 
-.gem__intro {
+.gem__intro, .gem__install {
   margin-bottom: 32px;
   padding-bottom: 30px;
   border-bottom: 1px solid #c1c4ca; }
@@ -38,6 +42,9 @@
 .gem__sha {
   margin-top: 16px; }
 
+.gem__expiry {
+  margin-top: 16px; }
+
 .gem__ghbtn {
     margin-bottom: 15px; }
 
@@ -59,7 +66,6 @@
     opacity: .5; }
 
 .gem__users__mfa-text {
-  font-size: 9px;
   color: #e9573f;
 }
 .gem__downloads-wrap {
@@ -88,6 +94,14 @@
   display: block;
   font-weight: 800;
   font-size: 18px;
+  color: #141c22; }
+
+.gem__rubygem-version-age {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  display: block;
+  font-weight: 800;
+  font-size: 14px;
   color: #141c22; }
 
 .gem__code-wrap {
@@ -122,6 +136,11 @@
   border: none;
   font-weight: bold; }
 
+.gem__code.multiline {
+  line-height: inherit;
+  white-space: pre-wrap;
+  border-radius: 0; }
+
   .gem__code::-webkit-scrollbar {
     display: none; }
 
@@ -149,42 +168,32 @@
     width: 10px;
     background-image: linear-gradient(to right, transparent 0%, white 100%); }
 
-.gem__code__tooltip--copy,
-.gem__code__tooltip--copied {
-  display: none; }
+.gem__code__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+  border: #c1c4ca 1px solid;
+  border-bottom: 0; }
 
-.clipboard-is-hover,
-.clipboard-is-active {
-  display: block;
-  position: absolute;
-  top: 45px;
-  right: 0;
-  width: auto;
-  padding-left: 10px;
-  padding-right: 10px;
-  z-index: 1;
-  border-radius: 6px;
-  background-color: #141c22;
-  text-transform: none;
-  line-height: 30px;
-  text-align: center;
-  color: #ffffff; }
-  .clipboard-is-hover:before,
-  .clipboard-is-active:before {
-    content: "";
-    position: absolute;
-    top: -4px;
-    right: 8px;
-    height: 15px;
-    width: 15px;
-    background-color: #141c22;
-    -ms-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
+.gem__code__header .gem__code__icon {
+  position: inherit;
+  padding: .125rem;
+  width: 40px; }
+
+.gem__code__icon.static {
+  position: static; }
 
 .gem__link:before {
   margin-right: 16px; }
+
+.gem__link__verified:after {
+  margin-left: 8px;
+  font-size: .75rem;
+  content: "✓"; }
 
 .gem__versions-wrap {
   margin-bottom: 70px;
@@ -194,7 +203,10 @@
   margin-bottom: 12px; }
 
 .gem__version__date {
-  color: #a6aab2; }
+  color: var(--gem-version-color); }
+
+.gem__version__date.tooltip__text {
+  color: var(--gem-version-color); }
 
 .gem__versions-wrap {
   overflow: auto; }
@@ -209,11 +221,13 @@
   .gem__version-wrap .gem__version__date {
     font-weight: 400; }
 
+.gem__requirement-wrap {
+    line-height: inherit; }
 .gem__requirement-wrap a.t-list__item {
     display: inline-block; }
 
 .gem__unregistered {
-  color: #a6aab2;
+  color: var(--gem-version-color);
   cursor: help;
 }
 
@@ -246,4 +260,8 @@
 
 .gem__previous__version {
   float: left;
+}
+
+.gem__dependencies:not(:first-of-type) {
+  margin-top: 36px;
 }

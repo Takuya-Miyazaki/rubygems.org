@@ -1,6 +1,6 @@
 class GemTypo
   DOWNLOADS_THRESHOLD = 10_000
-  LAST_RELEASE_TIME   = Time.zone.now - 5.years
+  LAST_RELEASE_TIME   = 5.years.ago
 
   attr_reader :protected_gem
 
@@ -35,6 +35,6 @@ class GemTypo
 
   def not_protected?(rubygem)
     return true unless rubygem
-    rubygem.downloads < DOWNLOADS_THRESHOLD && rubygem.versions.most_recent.created_at < LAST_RELEASE_TIME
+    rubygem.downloads < DOWNLOADS_THRESHOLD && rubygem.most_recent_version.created_at < LAST_RELEASE_TIME
   end
 end

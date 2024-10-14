@@ -1,24 +1,24 @@
 inherit_from: .rubocop_todo.yml
 require:
-  - ./test/safe_navigation_cop.rb
+  - ./lib/cops/safe_navigation_cop.rb
   - rubocop-performance
   - rubocop-rails
+  - rubocop-minitest
+  - rubocop-capybara
+  - rubocop-factory_bot
 
 AllCops:
   Exclude:
     - config/initializers/forbidden_yaml.rb
     - app/helpers/dynamic_errors_helper.rb
-    - !ruby/regexp /(vendor|bundle|bin|db|tmp)\/.*/
+    - !ruby/regexp /(vendor|bundle|bin|db/(migrate/|schema\.rb|downloads_schema\.rb)|tmp|server)($|\/.*)/
   DisplayCopNames: true
   DisplayStyleGuide: true
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.3
+  NewCops: enable
 
 Rails:
   Enabled: true
-
-# TODO: Enable on rubocop 0.67.3
-Rails/ActiveRecordOverride:
-  Enabled: false
 
 Rails/SkipsModelValidations:
   Enabled: false
@@ -35,11 +35,6 @@ Rails/HelperInstanceVariable:
 Rails/FilePath:
   Enabled: false
 
-Rails/RakeEnvironment:
-  Exclude:
-    - lib/tasks/gen_erd.rake
-    - lib/tasks/elasticsearch.rake
-
 Rails/UnknownEnv:
   Environments:
     - production
@@ -50,6 +45,14 @@ Rails/UnknownEnv:
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
 
+Rails/ActionControllerTestCase:
+  Enabled: false # Causes every integration test to fail
+
+Rails/Output:
+  Exclude:
+    - app/views/**/*_view.rb
+    - app/views/**/*_component.rb
+
 Layout/ArgumentAlignment:
   Enabled: false
 
@@ -57,11 +60,23 @@ Metrics/AbcSize:
   Max: 42 # TODO: Lower to 15
   Exclude:
     - test/functional/api/v1/owners_controller_test.rb
+    - db/**/*.rb
 
-Metrics/ClassLength:
-  Max: 350 # TODO: Lower to 100
+Metrics/BlockLength:
   Exclude:
     - test/**/*.rb
+    - lib/tasks/**/*.rake
+    - lib/github_oauthable.rb
+    - app/models/concerns/**/*.rb
+    - config/routes.rb
+    - config/environments/development.rb
+    - db/**/*.rb
+
+Metrics/ClassLength:
+  Max: 357 # TODO: Lower to 100
+  Exclude:
+    - test/**/*
+    - db/**/*.rb
 
 Metrics/CyclomaticComplexity:
   Max: 9 # TODO: Lower to 6
@@ -71,6 +86,8 @@ Layout/LineLength:
 
 Metrics/MethodLength:
   Max: 30 # TODO: Lower to 10
+  Exclude:
+    - db/**/*.rb
 
 Metrics/ModuleLength:
   Exclude:
@@ -80,11 +97,6 @@ Metrics/ModuleLength:
 
 Metrics/PerceivedComplexity:
   Max: 10 # TODO: Lower to 7
-
-# TODO: Enable on rubocop 0.67.3
-Naming/RescuedExceptionsVariableName:
-  Exclude:
-    - app/jobs/notifier.rb
 
 Performance/RedundantMerge:
   Enabled: false
@@ -122,12 +134,10 @@ Style/CustomSafeNavigationCop:
   Exclude:
     - app/models/links.rb
 
-Style/ClassAndModuleChildren:
-  EnforcedStyle: compact
-  Exclude:
-    - lib/lograge/formatters/datadog.rb
-
 Style/Documentation:
+  Enabled: false
+
+Style/FetchEnvVar:
   Enabled: false
 
 Style/StringLiterals:
@@ -136,9 +146,6 @@ Style/StringLiterals:
     - config/**/*
 
 Style/FrozenStringLiteralComment:
-  Enabled: false
-
-Security/MarshalLoad:
   Enabled: false
 
 Style/EmptyMethod:
@@ -270,8 +277,26 @@ Style/HashAsLastArrayItem:
 Style/HashLikeCase:
   Enabled: true
 
+Style/HashSyntax:
+  EnforcedShorthandSyntax: either
+
 Style/RedundantAssignment:
   Enabled: true
 
 Style/RedundantFileExtensionInRequire:
   Enabled: true
+
+Minitest/MultipleAssertions:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+  Exclude:
+    - lib/gemcutter/middleware/hostess.rb
+    - lib/gemcutter/middleware/redirector.rb
+
+Capybara/ClickLinkOrButtonStyle:
+  Enabled: false
+
+Rails/ThreeStateBooleanColumn:
+  Enabled: false

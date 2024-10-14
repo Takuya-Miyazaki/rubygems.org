@@ -3,22 +3,24 @@ require "test_helper"
 class DashboardTest < ActionDispatch::IntegrationTest
   setup do
     @user = create(:user, remember_token_expires_at: Gemcutter::REMEMBER_FOR.from_now)
-    cookies[:remember_token] = @user.remember_token
+    post session_path(session: { who: @user.handle, password: PasswordHelpers::SECURE_TEST_PASSWORD })
 
     create(:rubygem, name: "arrakis", number: "1.0.0")
   end
 
   test "request with array of api keys does not pass autorization" do
-    cookies[:remember_token] = nil
-    create(:api_key, user: @user, key: "1234", show_dashboard: true)
+    delete sign_out_path
+    create(:api_key, owner: @user, key: "1234", scopes: %i[show_dashboard])
 
     rubygem = create(:rubygem, name: "sandworm", number: "1.0.0")
     create(:subscription, rubygem: rubygem, user: @user)
 
     get "/dashboard.atom?api_key=1234", as: :json
+
     assert page.has_content? "sandworm"
 
     get "/dashboard.atom?api_key[]=1234&api_key[]=key1", as: :json
+
     refute page.has_content? "sandworm"
   end
 
@@ -53,6 +55,7 @@ class DashboardTest < ActionDispatch::IntegrationTest
     create(:subscription, rubygem: rubygem, user: @user)
 
     get dashboard_path(format: :atom)
+
     assert_response :success
     assert_equal "application/atom+xml", response.media_type
     assert page.has_content? "sandworm"

@@ -1,33 +1,65 @@
 require "digest/sha2"
 
-class Version < ApplicationRecord
-  MAX_TEXT_FIELD_LENGTH = 64_000
+class Version < ApplicationRecord # rubocop:disable Metrics/ClassLength
+  RUBYGEMS_IMPORT_DATE = Date.parse("2009-07-25")
 
   belongs_to :rubygem, touch: true
-  has_many :dependencies, -> { order("rubygems.name ASC").includes(:rubygem) }, dependent: :destroy, inverse_of: "version"
+  has_many :dependencies, lambda {
+                            order(Rubygem.arel_table["name"].asc).includes(:rubygem).references(:rubygem)
+                          }, dependent: :destroy, inverse_of: "version"
+  has_many :audits, as: :auditable, inverse_of: :auditable, dependent: :nullify
   has_one :gem_download, inverse_of: :version, dependent: :destroy
-  belongs_to :pusher, class_name: "User", foreign_key: "pusher_id", inverse_of: false, optional: true
+  belongs_to :pusher, class_name: "User", inverse_of: :pushed_versions, optional: true
+  belongs_to :pusher_api_key, class_name: "ApiKey", inverse_of: :pushed_versions, optional: true
+  has_one :deletion, dependent: :delete, inverse_of: :version, required: false
+  has_one :yanker, through: :deletion, source: :user, inverse_of: :yanked_versions, required: false
 
-  before_save :update_prerelease, if: :number_changed?
+  before_validation :set_canonical_number, if: :number_changed?
   before_validation :full_nameify!
+  before_validation :gem_full_nameify!
+  before_save :create_link_verifications, if: :metadata_changed?
+  before_save :update_prerelease, if: :number_changed?
+  # TODO: Remove this once we move to GemDownload only
+  after_create :create_gem_download
+  after_create :record_push_event
   after_save :reorder_versions, if: -> { saved_change_to_indexed? || saved_change_to_id? }
+  after_save :enqueue_web_hook_jobs, if: -> { saved_change_to_indexed? && (!saved_change_to_id? || indexed?) }
   after_save :refresh_rubygem_indexed, if: -> { saved_change_to_indexed? || saved_change_to_id? }
 
-  serialize :licenses
-  serialize :requirements
+  serialize :licenses, coder: YAML
+  serialize :requirements, coder: YAML
+  serialize :cert_chain, coder: CertificateChainSerializer
 
-  validates :number, length: { maximum: Gemcutter::MAX_FIELD_LENGTH }, format: { with: /\A#{Gem::Version::VERSION_PATTERN}\z/ }
-  validates :platform, length: { maximum: Gemcutter::MAX_FIELD_LENGTH }, format: { with: Rubygem::NAME_PATTERN }
-  validates :full_name, presence: true, uniqueness: { case_sensitive: false }
+  validates :number, length: { maximum: Gemcutter::MAX_FIELD_LENGTH }, format: { with: Patterns::VERSION_PATTERN }
+  validates :platform, length: { maximum: Gemcutter::MAX_FIELD_LENGTH }, format: { with: Patterns::NAME_PATTERN }
+  validates :gem_platform, length: { maximum: Gemcutter::MAX_FIELD_LENGTH }, format: { with: Patterns::NAME_PATTERN },
+            if: -> { validation_context == :create || gem_platform_changed? }
+  validates :full_name, presence: true, uniqueness: { case_sensitive: false },
+            if: -> { validation_context == :create || full_name_changed? }
+  validates :gem_full_name, presence: true, uniqueness: { case_sensitive: false },
+            if: -> { validation_context == :create || gem_full_name_changed? }
   validates :rubygem, presence: true
-  validates :required_rubygems_version, :licenses, length: { maximum: Gemcutter::MAX_FIELD_LENGTH }, allow_blank: true
-  validates :description, :summary, :authors, :requirements, length: { minimum: 0, maximum: MAX_TEXT_FIELD_LENGTH }, allow_blank: true
+  validates :licenses, length: { maximum: Gemcutter::MAX_FIELD_LENGTH }, allow_blank: true
+  validates :required_rubygems_version, :required_ruby_version, length: { maximum: Gemcutter::MAX_FIELD_LENGTH },
+    gem_requirements: true, allow_blank: true
+  validates :description, :summary, :authors, :requirements, :cert_chain,
+    length: { minimum: 0, maximum: Gemcutter::MAX_TEXT_FIELD_LENGTH },
+    allow_blank: true
+  validates :sha256, :spec_sha256, format: { with: Patterns::BASE64_SHA256_PATTERN }, allow_nil: true
+
+  validates :number, :platform, :gem_platform, :full_name, :gem_full_name, :canonical_number,
+    name_format: { requires_letter: false },
+    if: -> { validation_context == :create || number_changed? || platform_changed? },
+    presence: true
 
   validate :unique_canonical_number, on: :create
   validate :platform_and_number_are_unique, on: :create
+  validate :gem_platform_and_number_are_unique, on: :create
+  validate :original_platform_resolves_to_gem_platform, on: %i[create platform_changed? gem_platform_changed?]
   validate :authors_format, on: :create
-  validate :metadata_links_format
+  validate :metadata_links_format, if: -> { validation_context == :create || metadata_changed? }
   validate :metadata_attribute_length
+  validate :no_dashes_in_version_number, on: :create
 
   class AuthorType < ActiveModel::Type::String
     def cast_value(value)
@@ -40,8 +72,6 @@ class Version < ApplicationRecord
   end
   attribute :authors, AuthorType.new
 
-  # TODO: Remove this once we move to GemDownload only
-  after_create :create_gem_download
   def create_gem_download
     GemDownload.create!(count: 0, rubygem_id: rubygem_id, version_id: id)
   end
@@ -69,6 +99,10 @@ class Version < ApplicationRecord
   def self.subscribed_to_by(user)
     where(rubygem_id: user.subscribed_gem_ids)
       .by_created_at
+  end
+
+  def self.created_after(time)
+    where(arel_table[:created_at].gt(Arel::Nodes::BindParam.new(time)))
   end
 
   def self.latest
@@ -123,13 +157,9 @@ class Version < ApplicationRecord
       .pluck("rubygems.name", :number, :platform)
   end
 
-  def self.most_recent
-    latest.find_by(platform: "ruby") || latest.order(number: :desc).first || last
-  end
-
   # This method returns the new versions for brand new rubygems
   def self.new_pushed_versions(limit = 5)
-    subquery = <<-SQL
+    subquery = <<~SQL.squish
       versions.rubygem_id IN (SELECT versions.rubygem_id FROM versions
         GROUP BY versions.rubygem_id HAVING COUNT(versions.rubygem_id) = 1
         ORDER BY versions.rubygem_id DESC LIMIT :limit)
@@ -139,37 +169,31 @@ class Version < ApplicationRecord
   end
 
   def self.just_updated(limit = 5)
-    subquery = <<-SQL
-      versions.rubygem_id IN (SELECT versions.rubygem_id
-                                FROM versions
-                            WHERE versions.indexed = 'true'
-                            GROUP BY versions.rubygem_id
-                              HAVING COUNT(versions.id) > 1
-                              ORDER BY MAX(created_at) DESC LIMIT :limit)
-    SQL
-
-    where(subquery, limit: limit)
+    where(rubygem_id: Version.default_scoped
+                        .select(:rubygem_id)
+                        .indexed
+                        .created_after(6.months.ago)
+                        .group(:rubygem_id)
+                        .having(arel_table["id"].count.gt(1))
+                        .order(arel_table["created_at"].maximum.desc)
+                        .limit(limit))
       .joins(:rubygem)
       .indexed
       .by_created_at
       .limit(limit)
   end
 
-  def self.published(limit)
-    indexed.by_created_at.limit(limit)
-  end
-
-  def self.find_from_slug!(rubygem_id, slug)
-    rubygem = rubygem_id.is_a?(Rubygem) ? rubygem_id : Rubygem.find(rubygem_id)
-    find_by!(full_name: "#{rubygem.name}-#{slug}")
+  def self.published
+    indexed.by_created_at
   end
 
   def self.rubygem_name_for(full_name)
     find_by(full_name: full_name)&.rubygem&.name
   end
 
+  # id is added to ORDER to return stable results for gems pushed at the same time
   def self.created_between(start_time, end_time)
-    where(created_at: start_time..end_time).order(:created_at)
+    where(created_at: start_time..end_time).order(:created_at, :id)
   end
 
   def platformed?
@@ -177,6 +201,20 @@ class Version < ApplicationRecord
   end
 
   delegate :reorder_versions, to: :rubygem
+
+  def authored_at
+    return built_at if rely_on_built_at?
+
+    created_at
+  end
+
+  # Originally used to prevent showing misidentified dates for gems predating RubyGems,
+  # this method also covers cases where a Gem::Specification date is obviously invalid due to build-time considerations.
+  def rely_on_built_at?
+    return false if created_at.to_date != RUBYGEMS_IMPORT_DATE
+
+    built_at && built_at <= RUBYGEMS_IMPORT_DATE
+  end
 
   def refresh_rubygem_indexed
     rubygem.refresh_indexed!
@@ -192,6 +230,19 @@ class Version < ApplicationRecord
 
   def yanked?
     !indexed
+  end
+
+  def cert_chain_valid_not_before
+    cert_chain.map(&:not_before).max
+  end
+
+  def cert_chain_valid_not_after
+    cert_chain.map(&:not_after).min
+  end
+
+  def signature_expired?
+    return false unless (expiration_time = cert_chain_valid_not_after)
+    expiration_time < Time.now.utc
   end
 
   def size
@@ -220,8 +271,7 @@ class Version < ApplicationRecord
       requirements: spec.requirements,
       built_at: spec.date,
       required_rubygems_version: spec.required_rubygems_version.to_s,
-      required_ruby_version: spec.required_ruby_version.to_s,
-      indexed: true
+      required_ruby_version: spec.required_ruby_version.to_s
     )
   end
 
@@ -268,13 +318,12 @@ class Version < ApplicationRecord
       "prerelease"                 => prerelease,
       "licenses"                   => licenses,
       "requirements"               => requirements,
-      "sha"                        => sha256_hex
+      "sha"                        => sha256_hex,
+      "spec_sha"                   => spec_sha256_hex
     }
   end
 
-  def as_json(*)
-    payload
-  end
+  delegate :as_json, :to_yaml, to: :payload
 
   def to_xml(options = {})
     payload.to_xml(options.merge(root: "version"))
@@ -292,11 +341,14 @@ class Version < ApplicationRecord
     end
   end
 
-  def to_bundler
-    if number[0] == "0" || prerelease?
+  def to_bundler(locked_version: false)
+    if prerelease?
+      modifier = locked_version ? "" : "~> "
+      %(gem '#{rubygem.name}', '#{modifier}#{number}')
+    elsif number[0] == "0"
       %(gem '#{rubygem.name}', '~> #{number}')
     else
-      release = feature_release(number)
+      release = feature_release
       if release == Gem::Version.new(number)
         %(gem '#{rubygem.name}', '~> #{release}')
       else
@@ -314,7 +366,7 @@ class Version < ApplicationRecord
     latest = if prerelease
                rubygem.versions.by_position.prerelease.first
              else
-               rubygem.versions.most_recent
+               rubygem.most_recent_version
              end
     command << " -v #{number}" if latest != self
     command << " --pre" if prerelease
@@ -329,6 +381,10 @@ class Version < ApplicationRecord
     Version._sha256_hex(sha256) if sha256
   end
 
+  def spec_sha256_hex
+    Version._sha256_hex(spec_sha256) if spec_sha256
+  end
+
   def self._sha256_hex(raw)
     raw.unpack1("m0").unpack1("H*")
   end
@@ -337,14 +393,22 @@ class Version < ApplicationRecord
     Links::LINKS.any? { |_, long| metadata.key? long }
   end
 
-  def yanker
-    Deletion.find_by(rubygem: rubygem.name, number: number, platform: platform)&.user unless indexed
+  def rubygems_metadata_mfa_required?
+    ActiveRecord::Type::Boolean.new.cast(metadata["rubygems_mfa_required"])
   end
 
   def prerelease
     !!to_gem_version.prerelease?
   end
   alias prerelease? prerelease
+
+  def manifest
+    rubygem.version_manifest(number, platformed? ? platform : nil)
+  end
+
+  def gem_file_name
+    "#{full_name}.gem"
+  end
 
   private
 
@@ -355,6 +419,18 @@ class Version < ApplicationRecord
   def platform_and_number_are_unique
     return unless Version.exists?(rubygem_id: rubygem_id, number: number, platform: platform)
     errors.add(:base, "A version already exists with this number or platform.")
+  end
+
+  def gem_platform_and_number_are_unique
+    platforms = Version.where(rubygem_id: rubygem_id, number: number, gem_platform: gem_platform).pluck(:platform)
+    return if platforms.empty?
+    errors.add(:base, "A version already exists with this number and resolved platform #{platforms}")
+  end
+
+  def original_platform_resolves_to_gem_platform
+    resolved = Gem::Platform.new(platform).to_s
+    return if gem_platform == resolved
+    errors.add(:base, "The original platform #{platform} does not resolve the platform #{gem_platform} (instead it is #{resolved})")
   end
 
   def authors_format
@@ -371,15 +447,29 @@ class Version < ApplicationRecord
     full_name << "-#{platform}" if platformed?
   end
 
-  def feature_release(number)
-    feature_version = Gem::Version.new(number).segments[0, 2].join(".")
+  def gem_full_nameify!
+    return if gem_platform.blank?
+    return if rubygem.nil?
+    self.gem_full_name = "#{rubygem.name}-#{number}"
+    gem_full_name << "-#{gem_platform}" unless gem_platform == "ruby"
+  end
+
+  def set_canonical_number
+    return unless Gem::Version.correct?(number)
+    self.canonical_number = to_gem_version.canonical_segments.join(".")
+  end
+
+  def feature_release
+    feature_version = to_gem_version.release.segments[0, 2].join(".")
     Gem::Version.new(feature_version)
   end
 
   def metadata_links_format
     Linkset::LINKS.each do |link|
-      errors.add(:metadata, "['#{link}'] does not appear to be a valid URL") if
-        metadata[link] && metadata[link] !~ Patterns::URL_VALIDATION_REGEXP
+      url = metadata[link]
+      next unless url
+      next if Patterns::URL_VALIDATION_REGEXP.match?(url)
+      errors.add(:metadata, "['#{link}'] does not appear to be a valid URL")
     end
   end
 
@@ -398,5 +488,31 @@ class Version < ApplicationRecord
   def unique_canonical_number
     version = Version.find_by(canonical_number: canonical_number, rubygem_id: rubygem_id, platform: platform)
     errors.add(:canonical_number, "has already been taken. Existing version: #{version.number}") unless version.nil?
+  end
+
+  def no_dashes_in_version_number
+    return unless number&.include?("-")
+    errors.add(:number, "cannot contain a dash (it will be uninstallable)")
+  end
+
+  def create_link_verifications
+    uris = metadata.values_at(*Links::LINKS.values).compact_blank.uniq
+    verifications = rubygem.link_verifications.where(uri: uris).index_by(&:uri)
+    uris.each do |uri|
+      verification = verifications.fetch(uri) { rubygem.link_verifications.create_or_find_by!(uri:) }
+      verification.retry_if_needed
+    end
+  end
+
+  def record_push_event
+    rubygem.record_event!(Events::RubygemEvent::VERSION_PUSHED, number: number, platform: platform, sha256: sha256_hex,
+      pushed_by: pusher&.display_handle, version_gid: to_gid, actor_gid: pusher&.to_gid)
+  end
+
+  def enqueue_web_hook_jobs
+    jobs = rubygem.web_hooks.or(WebHook.global).enabled
+    jobs.find_each do |job|
+      job.fire(Gemcutter::PROTOCOL, Gemcutter::HOST, self)
+    end
   end
 end

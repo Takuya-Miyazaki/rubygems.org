@@ -28,9 +28,10 @@ class Internal::PingControllerTest < ActionController::TestCase
       f = mock
       f.expects(:read).raises(Errno::ENOENT)
       AppRevision.expects(:revision_file).returns(f)
-      AppRevision.expects("`".to_sym).with("git rev-parse HEAD").returns("SOMESHAFROMGIT\n")
+      AppRevision.expects(:`).with("git rev-parse HEAD").returns("SOMESHAFROMGIT\n")
 
       get :revision
+
       assert_response :ok
       assert_equal "SOMESHAFROMGIT", @response.body
     end
@@ -39,6 +40,7 @@ class Internal::PingControllerTest < ActionController::TestCase
       AppRevision.stubs(revision_file: stub(read: "SOMESHA\n"))
 
       get :revision
+
       assert_response :ok
       assert_equal "SOMESHA", @response.body
     end

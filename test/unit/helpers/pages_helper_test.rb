@@ -19,6 +19,7 @@ class PagesHelperTest < ActionView::TestCase
 
     should "return 0.0.0 as version number if version doesn't exist" do
       @rubygem.versions.each(&:destroy)
+
       assert_equal "0.0.0", version_number
     end
 
@@ -28,6 +29,12 @@ class PagesHelperTest < ActionView::TestCase
 
     should "return subtitle with release date and version number if both exist" do
       assert_equal "v#{@version_last.number} - #{nice_date_for(@version_last.created_at)}", subtitle
+    end
+
+    should "return subtitle with only version number if version doesn't exist" do
+      @rubygem.destroy
+
+      assert_equal "v0.0.0", subtitle
     end
   end
 end
