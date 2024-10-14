@@ -16,7 +16,7 @@ gem "google-protobuf", "~> 4.28"
 gem "faraday", "~> 2.12"
 gem "faraday-retry", "~> 2.2"
 gem "faraday-restrict-ip-addresses", "~> 0.3.0", require: "faraday/restrict_ip_addresses"
-gem "good_job", "~> 3.99"
+gem "good_job", "~> 4.4"
 gem "gravtastic", "~> 3.2"
 gem "honeybadger", "~> 5.5.1", require: false # see https://github.com/rubygems/rubygems.org/pull/4598
 gem "http_accept_language", "~> 2.1"
