@@ -71,7 +71,7 @@ gem "groupdate", "~> 6.5"
 
 group :avo, optional: true do
   source "https://packager.dev/avo-hq/" do
-    gem "avo-advanced", "~> 3.13"
+    gem "avo-advanced", "~> 3.14"
   end
 end
 
