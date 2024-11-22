@@ -62,7 +62,7 @@ gem "faraday-multipart", "~> 1.0"
 gem "timescaledb", "~> 0.3"
 
 # Admin dashboard
-gem "avo", "~> 3.13"
+gem "avo", "~> 3.14"
 gem "pagy", "~> 8.4"
 gem "view_component", "~> 3.14.0"
 gem "pundit", "~> 2.4"
