@@ -143,7 +143,7 @@ group :test do
   gem "mocha", "~> 2.4", require: false
   gem "shoulda-context", "~> 3.0.0.rc1"
   gem "shoulda-matchers", "~> 6.4"
-  gem "selenium-webdriver", "~> 4.25"
+  gem "selenium-webdriver", "~> 4.27"
   gem "webmock", "~> 3.24"
   gem "simplecov", "~> 0.22", require: false
   gem "simplecov-cobertura", "~> 2.1", require: false
