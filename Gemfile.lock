@@ -297,13 +297,13 @@ GEM
       ffi (~> 1.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    good_job (3.99.1)
-      activejob (>= 6.0.0)
-      activerecord (>= 6.0.0)
-      concurrent-ruby (>= 1.0.2)
-      fugit (>= 1.1)
-      railties (>= 6.0.0)
-      thor (>= 0.14.1)
+    good_job (4.5.1)
+      activejob (>= 6.1.0)
+      activerecord (>= 6.1.0)
+      concurrent-ruby (>= 1.3.1)
+      fugit (>= 1.11.0)
+      railties (>= 6.1.0)
+      thor (>= 1.0.0)
     google-protobuf (4.28.3)
       bigdecimal
       rake (>= 13)
@@ -677,7 +677,7 @@ GEM
       psych (>= 4.0.0)
     redcarpet (3.6.0)
     regexp_parser (2.9.2)
-    reline (0.5.11)
+    reline (0.5.12)
       io-console (~> 0.5)
     rexml (3.3.9)
     roadie (5.2.1)
@@ -905,7 +905,7 @@ DEPENDENCIES
   faraday-retry (~> 2.2)
   faraday_middleware-aws-sigv4 (~> 1.0)
   gem_server_conformance (~> 0.1.4)
-  good_job (~> 3.99)
+  good_job (~> 4.5)
   google-protobuf (~> 4.28)
   gravtastic (~> 3.2)
   groupdate (~> 6.5)
@@ -1093,7 +1093,7 @@ CHECKSUMS
   gem_server_conformance (0.1.4) sha256=ee404d5405eabcb6f7ab440d2193177375481a77bfa0ec3106165dd6c8e733bb
   get_process_mem (1.0.0) sha256=d54024f3bcbf776a4d6e0155ec2b21bc3ba44e2fd158c4c00c80aa8a36e0b4aa
   globalid (1.2.1) sha256=70bf76711871f843dbba72beb8613229a49429d1866828476f9c9d6ccc327ce9
-  good_job (3.99.1) sha256=7d3869d8a8ee8ef7048fee5d746f41c21987b7822c20038a2f773036bef0830a
+  good_job (4.5.1) sha256=a4dc9e4e5fe5d268bd8954f5a1aee7834c44ecb015feae96806f43b4c29b4352
   google-protobuf (4.28.3) sha256=c0ed86d6595257123ea9806dceed6ae158b6f8afde550cda2f565c5fa1df29b5
   google-protobuf (4.28.3-aarch64-linux) sha256=7715ac58bad92f3297d02ed302879f03b6994fedcc63d20ec9bfd16b793c95ee
   google-protobuf (4.28.3-arm64-darwin) sha256=cde7fa6b63349c79b1e9d815e6b4e3090bd98b7ac460bb282de3af03c4b9c0d5
@@ -1240,7 +1240,7 @@ CHECKSUMS
   rdoc (6.8.1) sha256=0128002d1bfc4892bdd780940841e4ca41275f63781fd832d11bc8ba4461462c
   redcarpet (3.6.0) sha256=8ad1889c0355ff4c47174af14edd06d62f45a326da1da6e8a121d59bdcd2e9e9
   regexp_parser (2.9.2) sha256=5a27e767ad634f8a4b544520d5cd28a0db7aa1198a5d7c9d7e11d7b3d9066446
-  reline (0.5.11) sha256=868d5f4dbfd9caafa70182f7f6fa258b70baee4e565d7cd9e70b4d5b11a7cb65
+  reline (0.5.12) sha256=41ab36d3fd2aaa169e99f8b82a93b9585f51130529360e24388fcccc20a055a2
   rexml (3.3.9) sha256=d71875b85299f341edf47d44df0212e7658cbdf35aeb69cefdb63f57af3137c9
   roadie (5.2.1) sha256=e4a4f61ce792bd91b228b6844b4bad6b160cdc1b8df86c81a8b983082a5001d6
   roadie-rails (3.3.0) sha256=4080f67a635962fb3df77ed42b2992ff41ee6502b60b5f4609a9fb9eb06c0a5e
