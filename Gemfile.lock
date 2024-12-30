@@ -164,7 +164,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.8)
+    bigdecimal (3.1.9)
     bindata (2.5.0)
     bitarray (1.2.0)
     bloomer (1.0.0)
@@ -343,7 +343,7 @@ GEM
     http_accept_language (2.1.1)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
-    importmap-rails (2.0.3)
+    importmap-rails (2.1.0)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
@@ -489,16 +489,18 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.17.2)
+    nokogiri (1.18.1)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.17.2-aarch64-linux)
+    nokogiri (1.18.1-aarch64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.17.2-arm64-darwin)
+    nokogiri (1.18.1-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.17.2-x86_64-darwin)
+    nokogiri (1.18.1-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.17.2-x86_64-linux)
+    nokogiri (1.18.1-x86_64-linux-gnu)
+      racc (~> 1.4)
+    nokogiri (1.18.1-x86_64-linux-musl)
       racc (~> 1.4)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
@@ -916,7 +918,7 @@ DEPENDENCIES
   groupdate (~> 6.5)
   honeybadger (~> 5.5.1)
   http_accept_language (~> 2.1)
-  importmap-rails (~> 2.0)
+  importmap-rails (~> 2.1)
   kaminari (~> 1.2)
   launchdarkly-server-sdk (~> 8.8)
   launchy (~> 3.0)
@@ -1037,7 +1039,7 @@ CHECKSUMS
   benchmark (0.4.0) sha256=0f12f8c495545e3710c3e4f0480f63f06b4c842cc94cec7f33a956f5180e874a
   benchmark-ips (2.14.0) sha256=b72bc8a65d525d5906f8cd94270dccf73452ee3257a32b89fbd6684d3e8a9b1d
   better_html (2.1.1) sha256=046c3551d1488a3f2939a7cac6fabf2bde08c32e135c91fcd683380118e5af55
-  bigdecimal (3.1.8) sha256=a89467ed5a44f8ae01824af49cbc575871fa078332e8f77ea425725c1ffe27be
+  bigdecimal (3.1.9) sha256=2ffc742031521ad69c2dfc815a98e426a230a3d22aeac1995826a75dabfad8cc
   bindata (2.5.0) sha256=29dccb8ba1cc9de148f24bb88930840c62db56715f0f80eccadd624d9f3d2623
   bitarray (1.2.0) sha256=7f9f31fadbd87bf51544cf13058e81cd6ec408ff40f127902cef3d6767b23f11
   bloomer (1.0.0) sha256=57a0d3a78628db9a92c6723f06c67697e420abcdb05aa757c6dfae607251d272
@@ -1118,7 +1120,7 @@ CHECKSUMS
   http-form_data (2.3.0) sha256=cc4eeb1361d9876821e31d7b1cf0b68f1cf874b201d27903480479d86448a5f3
   http_accept_language (2.1.1) sha256=0043f0d55a148cf45b604dbdd197cb36437133e990016c68c892d49dbea31634
   i18n (1.14.6) sha256=dc229a74f5d181f09942dd60ab5d6e667f7392c4ee826f35096db36d1fe3614c
-  importmap-rails (2.0.3) sha256=c56764941f9b637791fb87123b38f206f27cc55ef03cb19894f1994184e98cc8
+  importmap-rails (2.1.0) sha256=9f10c67d60651a547579f448100d033df311c5d5db578301374aeb774faae741
   inline_svg (1.10.0) sha256=5b652934236fd9f8adc61f3fd6e208b7ca3282698b19f28659971da84bf9a10f
   io-console (0.8.0) sha256=cd6a9facbc69871d69b2cb8b926fc6ea7ef06f06e505e81a64f14a470fddefa2
   irb (1.14.3) sha256=c457f1f2f1438ae9ce5c5be3981ae2138dec7fb894c7d73777eeeb0a6c0d0752
@@ -1177,11 +1179,12 @@ CHECKSUMS
   net-protocol (0.2.2) sha256=aa73e0cba6a125369de9837b8d8ef82a61849360eba0521900e2c3713aa162a8
   net-smtp (0.5.0) sha256=5fc0415e6ea1cc0b3dfea7270438ec22b278ca8d524986a3ae4e5ae8d087b42a
   nio4r (2.7.4) sha256=d95dee68e0bb251b8ff90ac3423a511e3b784124e5db7ff5f4813a220ae73ca9
-  nokogiri (1.17.2) sha256=75825401f59b1a8746ee8ce5d066c8f11e745642e36a4452e206730b03d1fd8c
-  nokogiri (1.17.2-aarch64-linux) sha256=585c8cac6380848b7973bacfd0584628d116810e5f209db25e22d0c32313e681
-  nokogiri (1.17.2-arm64-darwin) sha256=0c5eb06ba1c112d33c2bb29973b07e2f21c4ddb66c67c9386fd97ff1c5d84686
-  nokogiri (1.17.2-x86_64-darwin) sha256=dc5977eb3416e1d501b22b0ed4737bf7604121491405865b887975eacfb3e896
-  nokogiri (1.17.2-x86_64-linux) sha256=e8614ae8d776bd9adb535ca814375e7ae05d7cfa6aa01909e561484f6d70be0b
+  nokogiri (1.18.1) sha256=df18be7e96c34736b6abfdeda80c6e845134fb9afe2fe5d4fbc1cf1f89c68475
+  nokogiri (1.18.1-aarch64-linux-gnu) sha256=35837013800e34342fcbaca305f8c49231f6bd4f779bfa23fe7b4686ae82d5b8
+  nokogiri (1.18.1-arm64-darwin) sha256=d75193f284c899d225943a8944479faedd995a7573ddd5c8308ffbdf2ec55204
+  nokogiri (1.18.1-x86_64-darwin) sha256=d94e3aa6483577495fc8969d6b4b5c075840ce6b1ab09636a6d4177ad171051d
+  nokogiri (1.18.1-x86_64-linux-gnu) sha256=e516cf16ccde67ed4cc595a2621ca5ddd42562ecb24928914b0045a20a41620e
+  nokogiri (1.18.1-x86_64-linux-musl) sha256=f2c389bc100541247edaeaabc6d875b31d72e897471b66a67987b2e4df0192d6
   oauth2 (2.0.9) sha256=b21f9defcf52dc1610e0dfab4c868342173dcd707fd15c777d9f4f04e153f7fb
   observer (0.1.2) sha256=d8a3107131ba661138d748e7be3dbafc0d82e732fffba9fccb3d7829880950ac
   octokit (9.2.0) sha256=4fa47ff35ce654127edf2c836ab9269bcc8829f5542dc1e86871f697ce7f4316
