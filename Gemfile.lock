@@ -164,7 +164,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.8)
+    bigdecimal (3.1.9)
     bindata (2.5.0)
     bitarray (1.2.0)
     bloomer (1.0.0)
@@ -299,13 +299,13 @@ GEM
       ffi (~> 1.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    good_job (3.99.1)
-      activejob (>= 6.0.0)
-      activerecord (>= 6.0.0)
-      concurrent-ruby (>= 1.0.2)
-      fugit (>= 1.1)
-      railties (>= 6.0.0)
-      thor (>= 0.14.1)
+    good_job (4.6.0)
+      activejob (>= 6.1.0)
+      activerecord (>= 6.1.0)
+      concurrent-ruby (>= 1.3.1)
+      fugit (>= 1.11.0)
+      railties (>= 6.1.0)
+      thor (>= 1.0.0)
     google-protobuf (4.29.2)
       bigdecimal
       rake (>= 13)
@@ -489,16 +489,18 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.17.2)
+    nokogiri (1.18.1)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.17.2-aarch64-linux)
+    nokogiri (1.18.1-aarch64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.17.2-arm64-darwin)
+    nokogiri (1.18.1-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.17.2-x86_64-darwin)
+    nokogiri (1.18.1-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.17.2-x86_64-linux)
+    nokogiri (1.18.1-x86_64-linux-gnu)
+      racc (~> 1.4)
+    nokogiri (1.18.1-x86_64-linux-musl)
       racc (~> 1.4)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
@@ -910,7 +912,7 @@ DEPENDENCIES
   faraday-retry (~> 2.2)
   faraday_middleware-aws-sigv4 (~> 1.0)
   gem_server_conformance (~> 0.1.4)
-  good_job (~> 3.99)
+  good_job (~> 4.6)
   google-protobuf (~> 4.29)
   gravtastic (~> 3.2)
   groupdate (~> 6.5)
@@ -1037,7 +1039,7 @@ CHECKSUMS
   benchmark (0.4.0) sha256=0f12f8c495545e3710c3e4f0480f63f06b4c842cc94cec7f33a956f5180e874a
   benchmark-ips (2.14.0) sha256=b72bc8a65d525d5906f8cd94270dccf73452ee3257a32b89fbd6684d3e8a9b1d
   better_html (2.1.1) sha256=046c3551d1488a3f2939a7cac6fabf2bde08c32e135c91fcd683380118e5af55
-  bigdecimal (3.1.8) sha256=a89467ed5a44f8ae01824af49cbc575871fa078332e8f77ea425725c1ffe27be
+  bigdecimal (3.1.9) sha256=2ffc742031521ad69c2dfc815a98e426a230a3d22aeac1995826a75dabfad8cc
   bindata (2.5.0) sha256=29dccb8ba1cc9de148f24bb88930840c62db56715f0f80eccadd624d9f3d2623
   bitarray (1.2.0) sha256=7f9f31fadbd87bf51544cf13058e81cd6ec408ff40f127902cef3d6767b23f11
   bloomer (1.0.0) sha256=57a0d3a78628db9a92c6723f06c67697e420abcdb05aa757c6dfae607251d272
@@ -1099,7 +1101,7 @@ CHECKSUMS
   gem_server_conformance (0.1.5) sha256=5713ac325a5e1410c0307c00e9c988d8cf97f0eff8103f724ef69f38d910ebc9
   get_process_mem (1.0.0) sha256=d54024f3bcbf776a4d6e0155ec2b21bc3ba44e2fd158c4c00c80aa8a36e0b4aa
   globalid (1.2.1) sha256=70bf76711871f843dbba72beb8613229a49429d1866828476f9c9d6ccc327ce9
-  good_job (3.99.1) sha256=7d3869d8a8ee8ef7048fee5d746f41c21987b7822c20038a2f773036bef0830a
+  good_job (4.6.0) sha256=a5287e96f2d756199107954a1621e2c1ab3fd6cc6f6a7021ae8cd5e9773d264a
   google-protobuf (4.29.2) sha256=95cde89ad8e2d4006725430904a422462f0c2d7ddbdd4092d997441c978052f0
   google-protobuf (4.29.2-aarch64-linux) sha256=bca9ad4c89f3b583b022393ac423bb5783f8d1881ad74f05a377b0c0ad0e2522
   google-protobuf (4.29.2-arm64-darwin) sha256=66bd1a7fcf2b41701bedc2f68494aed5af83f63978fea202c58b3d16c8ce5a37
@@ -1177,11 +1179,12 @@ CHECKSUMS
   net-protocol (0.2.2) sha256=aa73e0cba6a125369de9837b8d8ef82a61849360eba0521900e2c3713aa162a8
   net-smtp (0.5.0) sha256=5fc0415e6ea1cc0b3dfea7270438ec22b278ca8d524986a3ae4e5ae8d087b42a
   nio4r (2.7.4) sha256=d95dee68e0bb251b8ff90ac3423a511e3b784124e5db7ff5f4813a220ae73ca9
-  nokogiri (1.17.2) sha256=75825401f59b1a8746ee8ce5d066c8f11e745642e36a4452e206730b03d1fd8c
-  nokogiri (1.17.2-aarch64-linux) sha256=585c8cac6380848b7973bacfd0584628d116810e5f209db25e22d0c32313e681
-  nokogiri (1.17.2-arm64-darwin) sha256=0c5eb06ba1c112d33c2bb29973b07e2f21c4ddb66c67c9386fd97ff1c5d84686
-  nokogiri (1.17.2-x86_64-darwin) sha256=dc5977eb3416e1d501b22b0ed4737bf7604121491405865b887975eacfb3e896
-  nokogiri (1.17.2-x86_64-linux) sha256=e8614ae8d776bd9adb535ca814375e7ae05d7cfa6aa01909e561484f6d70be0b
+  nokogiri (1.18.1) sha256=df18be7e96c34736b6abfdeda80c6e845134fb9afe2fe5d4fbc1cf1f89c68475
+  nokogiri (1.18.1-aarch64-linux-gnu) sha256=35837013800e34342fcbaca305f8c49231f6bd4f779bfa23fe7b4686ae82d5b8
+  nokogiri (1.18.1-arm64-darwin) sha256=d75193f284c899d225943a8944479faedd995a7573ddd5c8308ffbdf2ec55204
+  nokogiri (1.18.1-x86_64-darwin) sha256=d94e3aa6483577495fc8969d6b4b5c075840ce6b1ab09636a6d4177ad171051d
+  nokogiri (1.18.1-x86_64-linux-gnu) sha256=e516cf16ccde67ed4cc595a2621ca5ddd42562ecb24928914b0045a20a41620e
+  nokogiri (1.18.1-x86_64-linux-musl) sha256=f2c389bc100541247edaeaabc6d875b31d72e897471b66a67987b2e4df0192d6
   oauth2 (2.0.9) sha256=b21f9defcf52dc1610e0dfab4c868342173dcd707fd15c777d9f4f04e153f7fb
   observer (0.1.2) sha256=d8a3107131ba661138d748e7be3dbafc0d82e732fffba9fccb3d7829880950ac
   octokit (9.2.0) sha256=4fa47ff35ce654127edf2c836ab9269bcc8829f5542dc1e86871f697ce7f4316
