@@ -64,7 +64,7 @@ gem "sigstore", "~> 0.2.1"
 
 # Admin dashboard
 gem "avo", "~> 3.13"
-gem "pagy", "~> 8.4"
+gem "pagy", "~> 9.3"
 gem "view_component", "~> 3.21.0"
 gem "pundit", "~> 2.4"
 gem "chartkick", "~> 5.1"
