@@ -331,7 +331,7 @@ GEM
     hashie (5.0.0)
     heapy (0.2.0)
       thor
-    honeybadger (5.26.2)
+    honeybadger (5.26.3)
       logger
       ostruct
     htmlbeautifier (1.4.3)
@@ -557,7 +557,7 @@ GEM
     openssl-signature_algorithm (1.3.0)
       openssl (> 2.0)
     optimist (3.1.0)
-    ostruct (0.6.0)
+    ostruct (0.6.1)
     pagy (8.6.3)
     parallel (1.26.3)
     parser (3.3.7.0)
@@ -933,7 +933,7 @@ DEPENDENCIES
   google-protobuf (~> 4.29)
   gravtastic (~> 3.2)
   groupdate (~> 6.5)
-  honeybadger (~> 5.26.2)
+  honeybadger (~> 5.26.3)
   http_accept_language (~> 2.1)
   importmap-rails (~> 2.1)
   kaminari (~> 1.2)
@@ -1131,7 +1131,7 @@ CHECKSUMS
   hashdiff (1.1.1) sha256=c7966316726e0ceefe9f5c6aef107ebc3ccfef8b6db55fe3934f046b2cf0936a
   hashie (5.0.0) sha256=9d6c4e51f2a36d4616cbc8a322d619a162d8f42815a792596039fc95595603da
   heapy (0.2.0) sha256=74141e845d61ffc7c1e8bf8b127c8cf94544ec7a1181aec613288682543585ea
-  honeybadger (5.26.2) sha256=231b3402964f004fc3ff9f8c51a643bed5c17636d6087032f4ca2a8508c2109b
+  honeybadger (5.26.3) sha256=4992c85937aaa07f0f52b6730b494ddef564013a062162a935d0007ca018448b
   htmlbeautifier (1.4.3) sha256=b43d08f7e2aa6ae1b5a6f0607b4ed8954c8d4a8e85fd2336f975dda1e4db385b
   htmlentities (4.3.4) sha256=125a73c6c9f2d1b62100b7c3c401e3624441b663762afa7fe428476435a673da
   http (5.2.0) sha256=b99ed3c65376e0fd8107647fbaf5a8ab4f66c347d1271fb74cea757e209c6115
@@ -1218,7 +1218,7 @@ CHECKSUMS
   openssl (3.2.0) sha256=3c4bb8760977b4becd2819c6c2569bcf5c6f48b32b9f7a4ce1fd37f996378d14
   openssl-signature_algorithm (1.3.0) sha256=a3b40b5e8276162d4a6e50c7c97cdaf1446f9b2c3946a6fa2c14628e0c957e80
   optimist (3.1.0) sha256=81886f53ee8919f330aa30076d320d88eef9bc85aae2275376b4afb007c69260
-  ostruct (0.6.0) sha256=3b1736c99f4d985de36bde1155be5e22aaf6e564b30ff9bd481e2ef7c2d9ba85
+  ostruct (0.6.1) sha256=09a3fb7ecc1fa4039f25418cc05ae9c82bd520472c5c6a6f515f03e4988cb817
   pagy (8.6.3) sha256=537b2ee3119f237dd6c4a0d0a35c67a77b9d91ebb9d4f85e31407c2686774fb2
   parallel (1.26.3) sha256=d86babb7a2b814be9f4b81587bf0b6ce2da7d45969fab24d8ae4bf2bb4d4c7ef
   parser (3.3.7.0) sha256=7449011771e3e7881297859b849de26a6f4fccd515bece9520a87e7d2116119b
