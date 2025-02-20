@@ -333,7 +333,7 @@ GEM
     hashie (5.0.0)
     heapy (0.2.0)
       thor
-    honeybadger (5.26.3)
+    honeybadger (5.26.4)
       logger
       ostruct
     htmlbeautifier (1.4.3)
@@ -430,7 +430,7 @@ GEM
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
     local_time (3.0.2)
-    logger (1.6.5)
+    logger (1.6.6)
     loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -935,7 +935,7 @@ DEPENDENCIES
   google-protobuf (~> 4.29)
   gravtastic (~> 3.2)
   groupdate (~> 6.5)
-  honeybadger (~> 5.26.3)
+  honeybadger (~> 5.26.4)
   http_accept_language (~> 2.1)
   importmap-rails (~> 2.1)
   kaminari (~> 1.2)
@@ -1133,7 +1133,7 @@ CHECKSUMS
   hashdiff (1.1.2) sha256=2c30eeded6ed3dce8401d2b5b99e6963fe5f14ed85e60dd9e33c545a44b71a77
   hashie (5.0.0) sha256=9d6c4e51f2a36d4616cbc8a322d619a162d8f42815a792596039fc95595603da
   heapy (0.2.0) sha256=74141e845d61ffc7c1e8bf8b127c8cf94544ec7a1181aec613288682543585ea
-  honeybadger (5.26.3) sha256=4992c85937aaa07f0f52b6730b494ddef564013a062162a935d0007ca018448b
+  honeybadger (5.26.4) sha256=ff4a99d039ddefbb0805080fe9078bbf8d7e70dd6d8f5ad040e23eb12b69e540
   htmlbeautifier (1.4.3) sha256=b43d08f7e2aa6ae1b5a6f0607b4ed8954c8d4a8e85fd2336f975dda1e4db385b
   htmlentities (4.3.4) sha256=125a73c6c9f2d1b62100b7c3c401e3624441b663762afa7fe428476435a673da
   http (5.2.0) sha256=b99ed3c65376e0fd8107647fbaf5a8ab4f66c347d1271fb74cea757e209c6115
@@ -1171,7 +1171,7 @@ CHECKSUMS
   listen (3.9.0) sha256=db9e4424e0e5834480385197c139cb6b0ae0ef28cc13310cfd1ca78377d59c67
   llhttp-ffi (0.5.0) sha256=496f40ad44bcbf99de02da1f26b1ad64e6593cd487b931508a86228e2a3af0fa
   local_time (3.0.2) sha256=cb8abb2d56726ae285d00b0bd7f4c34bafc38c0c1cbc70ddc28f3a5661168d9d
-  logger (1.6.5) sha256=c3cfe56d01656490ddd103d38b8993d73d86296adebc5f58cefc9ec03741e56b
+  logger (1.6.6) sha256=dd618d24e637715472732e7eed02e33cfbdf56deaad225edd0f1f89d38024017
   loofah (2.24.0) sha256=61e6a710883abb8210887f3dc868cf3ed66594c509d9ff6987621efa6651ee1e
   lookbook (2.3.4) sha256=16484c9eb514ac0c23c4b59cfd5a52697141d35056e3a9c2a22b314c1b887605
   mail (2.8.1) sha256=ec3b9fadcf2b3755c78785cb17bc9a0ca9ee9857108a64b6f5cfc9c0b5bfc9ad
