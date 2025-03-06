@@ -430,7 +430,7 @@ GEM
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
     local_time (3.0.2)
-    logger (1.6.5)
+    logger (1.6.6)
     loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -498,22 +498,22 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.18.2)
+    nokogiri (1.18.3)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.18.2-aarch64-linux-gnu)
+    nokogiri (1.18.3-aarch64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.2-arm-linux-gnu)
+    nokogiri (1.18.3-arm-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.2-arm-linux-musl)
+    nokogiri (1.18.3-arm-linux-musl)
       racc (~> 1.4)
-    nokogiri (1.18.2-arm64-darwin)
+    nokogiri (1.18.3-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.2-x86_64-darwin)
+    nokogiri (1.18.3-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.2-x86_64-linux-gnu)
+    nokogiri (1.18.3-x86_64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.2-x86_64-linux-musl)
+    nokogiri (1.18.3-x86_64-linux-musl)
       racc (~> 1.4)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
@@ -570,9 +570,9 @@ GEM
       google-protobuf (>= 3.25.3)
     pghero (3.6.1)
       activerecord (>= 6.1)
-    phlex (1.11.0)
-    phlex-rails (1.2.2)
-      phlex (>= 1.10, < 2)
+    phlex (2.1.0)
+    phlex-rails (2.1.0)
+      phlex (~> 2.1.0)
       railties (>= 6.1, < 9)
     pp (0.6.2)
       prettyprint
@@ -804,7 +804,7 @@ GEM
     statsd-instrument (3.9.9)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
-    stringio (3.1.2)
+    stringio (3.1.5)
     strong_migrations (2.2.0)
       activerecord (>= 7)
     swd (2.0.3)
@@ -846,7 +846,7 @@ GEM
     unpwn (1.0.0)
       bloomer (~> 1.0)
       pwned (~> 2.0)
-    uri (1.0.2)
+    uri (1.0.3)
     user_agent_parser (2.18.0)
     useragent (0.16.11)
     validate_url (1.0.15)
@@ -884,7 +884,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.37)
-    zeitwerk (2.7.1)
+    zeitwerk (2.7.2)
     zlib (3.1.1)
 
 PLATFORMS
@@ -965,7 +965,7 @@ DEPENDENCIES
   pg (~> 1.5)
   pg_query (~> 6.0)
   pghero (~> 3.6)
-  phlex-rails (~> 1.2)
+  phlex-rails (~> 2.1)
   pp (= 0.6.2)
   prop_initializer (~> 0.2)
   propshaft (~> 1.1.0)
@@ -1171,7 +1171,7 @@ CHECKSUMS
   listen (3.9.0) sha256=db9e4424e0e5834480385197c139cb6b0ae0ef28cc13310cfd1ca78377d59c67
   llhttp-ffi (0.5.0) sha256=496f40ad44bcbf99de02da1f26b1ad64e6593cd487b931508a86228e2a3af0fa
   local_time (3.0.2) sha256=cb8abb2d56726ae285d00b0bd7f4c34bafc38c0c1cbc70ddc28f3a5661168d9d
-  logger (1.6.5) sha256=c3cfe56d01656490ddd103d38b8993d73d86296adebc5f58cefc9ec03741e56b
+  logger (1.6.6) sha256=dd618d24e637715472732e7eed02e33cfbdf56deaad225edd0f1f89d38024017
   loofah (2.24.0) sha256=61e6a710883abb8210887f3dc868cf3ed66594c509d9ff6987621efa6651ee1e
   lookbook (2.3.4) sha256=16484c9eb514ac0c23c4b59cfd5a52697141d35056e3a9c2a22b314c1b887605
   mail (2.8.1) sha256=ec3b9fadcf2b3755c78785cb17bc9a0ca9ee9857108a64b6f5cfc9c0b5bfc9ad
@@ -1200,14 +1200,14 @@ CHECKSUMS
   net-protocol (0.2.2) sha256=aa73e0cba6a125369de9837b8d8ef82a61849360eba0521900e2c3713aa162a8
   net-smtp (0.5.0) sha256=5fc0415e6ea1cc0b3dfea7270438ec22b278ca8d524986a3ae4e5ae8d087b42a
   nio4r (2.7.4) sha256=d95dee68e0bb251b8ff90ac3423a511e3b784124e5db7ff5f4813a220ae73ca9
-  nokogiri (1.18.2) sha256=93791cfb33186fe077eb9e1b8a6855b5621e328f81f565334572fa398366f8bf
-  nokogiri (1.18.2-aarch64-linux-gnu) sha256=74e0f9a7487a30a2957f46c5113d58f836436b033c9906e0bc6fee9d8cdafabf
-  nokogiri (1.18.2-arm-linux-gnu) sha256=6fb0246b69f2c589a69254e82bc2a40aa238c4f977fd7903e283341a92935729
-  nokogiri (1.18.2-arm-linux-musl) sha256=dcdd4d10ed2743f0d8c887825700c3a8506aea1aa415917ac50ccc01597c51a3
-  nokogiri (1.18.2-arm64-darwin) sha256=8288ec7a296e2510ca9bd053c0c5989f11260f8c07bc3e9afbafa536f7077281
-  nokogiri (1.18.2-x86_64-darwin) sha256=7fca165e5ee87e9b6b3f1377180376afc0c8652ed2a3d761f472f0e3d3a1c651
-  nokogiri (1.18.2-x86_64-linux-gnu) sha256=9330ced4a976604865c2a76ce158e2bc608fa83999552e85a32ec06f85f427db
-  nokogiri (1.18.2-x86_64-linux-musl) sha256=1cd7786ed15c76958d6a8f9a864df6208fecd624c340eb4ed211fbea60328f02
+  nokogiri (1.18.3) sha256=6b9fc3b14fd0cedd21f6cad8cf565123ba7401e56b5d0aec180c23cdca28fd5a
+  nokogiri (1.18.3-aarch64-linux-gnu) sha256=cab20305133078a8f6b60cf96311b48319175038cc7772e5ec586ff624cb7838
+  nokogiri (1.18.3-arm-linux-gnu) sha256=37b73a55e0d1e8a058a24abb16868903e81cb4773049739c532b864f87236b1b
+  nokogiri (1.18.3-arm-linux-musl) sha256=09407970cd13736cf87e975fae69c13e1178bab0313d07b35580ee4dd3650793
+  nokogiri (1.18.3-arm64-darwin) sha256=ce088965cd424b8e752d82087dcf017069d55791f157098ed1f671d966857610
+  nokogiri (1.18.3-x86_64-darwin) sha256=d729406bb5a7b1bbe7ed3c0922336dd2c46085ed444d6de2a0a4c33950a4edea
+  nokogiri (1.18.3-x86_64-linux-gnu) sha256=3c7ad5cee39855ed9c746065f39b584b9fd2aaff61df02d0f85ba8d671bbe497
+  nokogiri (1.18.3-x86_64-linux-musl) sha256=8aaecc22c0e5f12dac613e15f9a04059c3ec859d6f98f493cc831bd88fe8e731
   oauth2 (2.0.9) sha256=b21f9defcf52dc1610e0dfab4c868342173dcd707fd15c777d9f4f04e153f7fb
   observer (0.1.2) sha256=d8a3107131ba661138d748e7be3dbafc0d82e732fffba9fccb3d7829880950ac
   octokit (9.2.0) sha256=4fa47ff35ce654127edf2c836ab9269bcc8829f5542dc1e86871f697ce7f4316
@@ -1227,8 +1227,8 @@ CHECKSUMS
   pg (1.5.9) sha256=761efbdf73b66516f0c26fcbe6515dc7500c3f0aa1a1b853feae245433c64fdc
   pg_query (6.0.0) sha256=fbf09a4e900cee1d61e2bbfda1fefdbc35bc83c5f1c7ae1be1c6ffc5ae0f5c04
   pghero (3.6.1) sha256=e6d4f6ec3979d4828dafcd1eaa4214e70279fe2502b9fe5bd632d8333aa79cd4
-  phlex (1.11.0) sha256=979548e79a205c981612f1ab613addc8fa128c8092694d02f41aad4cea905e73
-  phlex-rails (1.2.2) sha256=a20218449e71bc9fa5a71b672fbede8a654c6b32a58f1c4ea83ddc1682307a4c
+  phlex (2.1.0) sha256=e92fcc7594586c23e2d71b24d582eab6b8ff59401cbb4682a5675000110cc0a8
+  phlex-rails (2.1.0) sha256=3b9a0b71a5d26d177d0eb8e1994182f13026f51679f710c5e1d30bf1609bd2b4
   pp (0.6.2) sha256=947ec3120c6f92195f8ee8aa25a7b2c5297bb106d83b41baa02983686577b6ff
   prettyprint (0.2.0) sha256=2bc9e15581a94742064a3cc8b0fb9d45aae3d03a1baa6ef80922627a0766f193
   prop_initializer (0.2.0) sha256=bd27704d0df8c59c3baf0df5cf448eba2b140fb9934fb31b2e379b5c842d8820
@@ -1317,7 +1317,7 @@ CHECKSUMS
   snaky_hash (2.0.1) sha256=1ac87ec157fcfe7a460e821e0cd48ae1e6f5e3e082ab520f03f31a9259dbdc31
   statsd-instrument (3.9.9) sha256=4404872dd03cc0d4bae57396b5c529135a4223fb78d616ca52f37562ac1803e6
   stimulus-rails (1.3.4) sha256=765676ffa1f33af64ce026d26b48e8ffb2e0b94e0f50e9119e11d6107d67cb06
-  stringio (3.1.2) sha256=204f1828f85cdb39d57cac4abc6dc44b04505a223f131587f2e20ae3729ba131
+  stringio (3.1.5) sha256=bca92461515a131535743bc81d5559fa1de7d80cff9a654d6c0af6f9f27e35c8
   strong_migrations (2.2.0) sha256=9fed7609633138bd1a97ccc371a3933f292073cde2c7bb888fbe452c76c4b02d
   swd (2.0.3) sha256=4cdbe2a4246c19f093fce22e967ec3ebdd4657d37673672e621bf0c7eb770655
   tailwindcss-rails (3.3.1) sha256=5dcc010ee90d53a59f40eff1f2706bc0b1d77fd3713a0fb196ff698bc4529dfe
@@ -1338,7 +1338,7 @@ CHECKSUMS
   unicode-display_width (3.1.4) sha256=8caf2af1c0f2f07ec89ef9e18c7d88c2790e217c482bfc78aaa65eadd5415ac1
   unicode-emoji (4.0.4) sha256=2c2c4ef7f353e5809497126285a50b23056cc6e61b64433764a35eff6c36532a
   unpwn (1.0.0) sha256=6239d17d46a882b3719b24fb79c78a34caff89d57ab0f5e546be5b5c882bc7d3
-  uri (1.0.2) sha256=b303504ceb7e5905771fa7fa14b649652fa949df18b5880d69cfb12494791e27
+  uri (1.0.3) sha256=e9f2244608eea2f7bc357d954c65c910ce0399ca5e18a7a29207ac22d8767011
   user_agent_parser (2.18.0) sha256=aa943b91da8906cace7d3fe16b450c9d77b68f571485c11e577af97aecb25584
   useragent (0.16.11) sha256=700e6413ad4bb954bb63547fa098dddf7b0ebe75b40cc6f93b8d54255b173844
   validate_url (1.0.15) sha256=72fe164c0713d63a9970bd6700bea948babbfbdcec392f2342b6704042f57451
@@ -1354,7 +1354,7 @@ CHECKSUMS
   xml-simple (1.1.9) sha256=d21131e519c86f1a5bc2b6d2d57d46e6998e47f18ed249b25cad86433dbd695d
   xpath (3.2.0) sha256=6dfda79d91bb3b949b947ecc5919f042ef2f399b904013eb3ef6d20dd3a4082e
   yard (0.9.37) sha256=a6e910399e78e613f80ba9add9ba7c394b1a935f083cccbef82903a3d2a26992
-  zeitwerk (2.7.1) sha256=0945986050e4907140895378e74df1fe882a2271ed087cc6c6d6b00d415a2756
+  zeitwerk (2.7.2) sha256=842e067cb11eb923d747249badfb5fcdc9652d6f20a1f06453317920fdcd4673
   zlib (3.1.1) sha256=f61bb03139bbe256c36ba99ef9fece1fb223e9034ed9e5fa3ddb1588d99abc71
 
 RUBY VERSION
