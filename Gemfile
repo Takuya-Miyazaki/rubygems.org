@@ -108,7 +108,7 @@ group :development, :test do
 
   # used to find n+1 queries
   gem "prosopite", "~> 2.1"
-  gem "pg_query", "~> 6.0"
+  gem "pg_query", "~> 6.1"
 
   # bundle show | rg rubocop | cut -d' ' -f4 | xargs bundle update
   gem "rubocop", "~> 1.73", require: false
