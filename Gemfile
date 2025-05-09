@@ -63,7 +63,7 @@ gem "sigstore", "~> 0.2.1"
 gem "kramdown", "~> 2.5"
 
 # Admin dashboard
-gem "avo", "~> 3.13"
+gem "avo", "~> 3.20"
 gem "pagy", "~> 8.4"
 gem "view_component", "~> 3.21.0"
 gem "pundit", "~> 2.5"
