@@ -222,14 +222,14 @@ GEM
       ssrf_filter (~> 1.5)
     csv (3.3.5)
     dalli (3.2.8)
-    datadog (2.37.0)
+    datadog (2.38.0)
       cgi
-      datadog-ruby_core_source (~> 3.5, >= 3.5.2)
+      datadog-ruby_core_source (~> 3.5, >= 3.5.3)
       libdatadog (~> 36.0.0.1.0)
       libddwaf (~> 1.30.0.0.0)
       logger
       msgpack
-    datadog-ruby_core_source (3.5.2)
+    datadog-ruby_core_source (3.5.3)
     date (3.5.1)
     debug (1.11.1)
       irb (~> 1.10)
@@ -361,7 +361,7 @@ GEM
     herb (0.10.2-x86_64-darwin)
     herb (0.10.2-x86_64-linux-gnu)
     herb (0.10.2-x86_64-linux-musl)
-    honeybadger (6.9.0)
+    honeybadger (6.9.1)
       logger
       ostruct
     htmlbeautifier (1.4.3)
@@ -813,7 +813,7 @@ GEM
       net-http
       protobug_sigstore_protos (~> 0.1.0)
       uri
-    simplecov (1.0.1)
+    simplecov (1.0.2)
     simplecov-cobertura (4.0.0)
       rexml
       simplecov (~> 1.0)
@@ -931,7 +931,7 @@ DEPENDENCIES
   clearance (~> 2.12)
   csv (~> 3.3)
   dalli (~> 3.2)
-  datadog (~> 2.37)
+  datadog (~> 2.38)
   debug (~> 1.0)
   derailed_benchmarks (~> 2.2)
   discard (~> 2.0)
@@ -951,7 +951,7 @@ DEPENDENCIES
   gravtastic (~> 3.2)
   groupdate (~> 6.8)
   herb (~> 0.10)
-  honeybadger (~> 6.9.0)
+  honeybadger (~> 6.9.1)
   http_accept_language (~> 2.1)
   importmap-rails (~> 2.2)
   kaminari (~> 1.2)
@@ -1083,6 +1083,7 @@ CHECKSUMS
   brakeman (8.0.5) sha256=03735f9690d3fd4b32d66aacbf0a6d15a84266bdd06b32c05c8ecc8f6021d2be
   browser (6.2.0) sha256=281d5295788825c9396427c292c2d2be0a5c91875c93c390fde6e5d61a5ace2d
   builder (3.3.0) sha256=497918d2f9dca528fdca4b88d84e4ef4387256d984b8154e9d5d3fe5a9c8835f
+  bundler (4.0.17) sha256=214e21431b5665dd2f99df8a5511c6b151d7a72e8015c8b38f8b775b61cbb6c1
   capybara (3.40.0) sha256=42dba720578ea1ca65fd7a41d163dd368502c191804558f6e0f71b391054aeef
   capybara-playwright-driver (0.5.10) sha256=e48e572d72bc1043c644fab44985be0a1e75d7d6917dc298355581848982a2c3
   cbor (0.5.10.2) sha256=df5104f7a62c881123e6505441b1e276208be1771540c2cc3b1de8a210a7c52c
@@ -1100,8 +1101,8 @@ CHECKSUMS
   css_parser (3.0.0) sha256=eaf0e9283fd581d06e815235ceef4f0910c0b394c606355dbc69f93e84443885
   csv (3.3.5) sha256=6e5134ac3383ef728b7f02725d9872934f523cb40b961479f69cf3afa6c8e73f
   dalli (3.2.8) sha256=2e63595084d91fae2655514a02c5d4fc0f16c0799893794abe23bf628bebaaa5
-  datadog (2.37.0) sha256=6c84b5358084ad36d82433d1056542dfd1b00d49c69875fbe78de9be35a98cfb
-  datadog-ruby_core_source (3.5.2) sha256=c379c012eca11d6c58b112d716a986d051fb566a436d58f46cde7cfec43cb299
+  datadog (2.38.0) sha256=0eaa04e043ec1dbc62a0360902014e4e2bacf2ea48204482618f0f0786f05aa7
+  datadog-ruby_core_source (3.5.3) sha256=5636592e73664c6c1efedf6645f2a882c4d04902088f847f6a5ddb765340cc9b
   date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
   debug (1.11.1) sha256=2e0b0ac6119f2207a6f8ac7d4a73ca8eb4e440f64da0a3136c30343146e952b6
   derailed_benchmarks (2.2.1) sha256=654280664fded41c9cd8fc27fc0fcfaf096023afab90eb4ac1185ba70c5d4439
@@ -1159,7 +1160,7 @@ CHECKSUMS
   herb (0.10.2-x86_64-darwin) sha256=b79c538c77506e21abeae80fca3eb14a700a35aae8e99a326ea5948a95fc821e
   herb (0.10.2-x86_64-linux-gnu) sha256=7042322268a83c62bed32a5be4b64e0f4716c88d45a6ac372e839d646711a863
   herb (0.10.2-x86_64-linux-musl) sha256=c91182c8b75431fe6a77c7a776f8be7db4b9a245ee95821f943e8d3725242664
-  honeybadger (6.9.0) sha256=f90b4f0dd37b8bfb1decb40f17349459828f6fd6933ef8cf1b1881dbc4a9eb75
+  honeybadger (6.9.1) sha256=3e79543ab171f810306bd152b3f470ce2b905b1a27f766f3138568949078cf68
   htmlbeautifier (1.4.3) sha256=b43d08f7e2aa6ae1b5a6f0607b4ed8954c8d4a8e85fd2336f975dda1e4db385b
   htmlentities (4.3.4) sha256=125a73c6c9f2d1b62100b7c3c401e3624441b663762afa7fe428476435a673da
   http_accept_language (2.1.1) sha256=0043f0d55a148cf45b604dbdd197cb36437133e990016c68c892d49dbea31634
@@ -1333,7 +1334,7 @@ CHECKSUMS
   shoulda-context (3.0.0.rc1) sha256=6e0d9d52ab798c13bc2b490c8537d4bf30cfd318a1ea839c39a66d1d293c6a1a
   shoulda-matchers (8.0.1) sha256=5dbb46e5765b9da225111b085e0819e8c8a121ff94bba430a153eb1ea2c60288
   sigstore (0.2.3) sha256=fe60a7b15254eaec765388fc7ad54ee6298f48a36bcea06173e91ecd7ce52c7f
-  simplecov (1.0.1) sha256=419d93c40484159d20b40e26e9a83cdd4c3afa2f3fd443bb8946c301cd658d75
+  simplecov (1.0.2) sha256=c6459434efe4b948b46477cc2df2faa73ab365f83a33c7c17f81262f4f7f1244
   simplecov-cobertura (4.0.0) sha256=e4fb3159b1ecea545b44f5452a8611305323e78ad23eae8aed35924d072e01ea
   snaky_hash (2.0.4) sha256=2b12758c57defa6796341a1620f84b1a23737421d8d7e2575d0550b53cc4fece
   ssrf_filter (1.5.0) sha256=e03dcdb9d1730d7f6710532a606b3543df2a448a0293ce04a2d995523c5a97f6
